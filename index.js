@@ -1,5 +1,30 @@
+import express from "express"
 import makeWASocket, { useMultiFileAuthState } from "@whiskeysockets/baileys"
 import qrcode from "qrcode-terminal"
+
+// ------------------------------------------------
+// EXPRESS SERVER
+// ------------------------------------------------
+const app = express()
+const PORT = 3000
+
+app.get("/", (req, res) => {
+  res.type("text/html; charset=utf-8")
+  res.status(200).send(`
+    <table border="1" cellpadding="12" cellspacing="0"
+     style="border-collapse: collapse; font-size: 20px; margin: 20px auto;">
+      <tr><th style="background: #f2f2f2; text-align: left;">Server Status OK</th></tr>
+      <tr><td>
+        Server Active — Built by Vimal PK.<br>
+        Running clean, strong, and perfectly healthy.
+      </td></tr>
+    </table>
+  `)
+})
+
+app.listen(PORT, () => {
+  console.log(`🚀 Express running on port ${PORT}`)
+})
 
 // ------------------------------------------------
 // NEXT CHECKUP DATE (Stored as JS object)
@@ -90,14 +115,12 @@ function sendMessageToAll(sock) {
 // ------------------------------------------------
 // SCHEDULER — Send every 5 seconds
 // ------------------------------------------------
-
 function scheduleSender(sock) {
   setInterval(() => {
-    console.log("⏳ Sending message (interval 5 seconds)…")
+    console.log("⏳ Sending message (interval)…")
     sendMessageToAll(sock)
-  }, 9000 * 2) // 5000 ms = 5 seconds
+  }, 9000 * 2)
 }
-
 
 // function scheduleSender(sock) {
 //   setInterval(() => {
@@ -111,9 +134,8 @@ function scheduleSender(sock) {
 //       sendMessageToAll(sock)
 //     }
 
-//   }, 1000 * 60) // Check every minute
+//   }, 1000 * 60)
 // }
-
 
 // ------------------------------------------------
 // MAIN WHATSAPP SCRIPT
