@@ -6,7 +6,7 @@ import qrcode from "qrcode-terminal"
 // EXPRESS SERVER
 // ------------------------------------------------
 const app = express()
-const PORT = 3000
+const PORT = 7000
 
 app.get("/", (req, res) => {
   res.type("text/html; charset=utf-8")
